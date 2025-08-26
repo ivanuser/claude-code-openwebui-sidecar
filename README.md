@@ -1,14 +1,23 @@
-# Claude Code Sidecar for Open WebUI
+# Claude Code for Open WebUI
 
-A standalone Docker service that adds Claude Code CLI capabilities to any Open WebUI instance without modifying the core installation.
+Two ways to add Claude Code CLI capabilities to your Open WebUI:
+
+## 🚀 Choose Your Installation Method
+
+### Option 1: 🐳 Sidecar Container (Recommended for existing setups)
+Run Claude Code as a separate Docker service alongside Open WebUI. No modifications to your Open WebUI installation required.
+
+### Option 2: 🔧 Embedded Integration (Full native experience)
+Install Claude Code directly into Open WebUI with admin panel controls, settings management, and native UI integration.
 
 ## Features
 
-- ✨ **Zero Modification Installation** - No changes to your existing Open WebUI setup
-- 🔌 **OpenAI-Compatible API** - Seamlessly integrates as an OpenAI API provider
-- 🐳 **Docker-Based** - Easy deployment with Docker Compose
-- 🔒 **Secure** - Optional API key authentication
-- 🚀 **Claude Pro Support** - Works with Claude Pro OAuth tokens
+- ✨ **Two Installation Options** - Choose sidecar or embedded based on your needs
+- 🎛️ **Admin Panel Controls** (Embedded) - Full settings management in Open WebUI admin
+- 🔌 **OpenAI-Compatible API** - Works with Open WebUI's model system
+- 🐳 **Docker Support** - Easy deployment with Docker Compose
+- 🔒 **Secure** - OAuth token authentication
+- 🚀 **Claude Pro Support** - Requires Claude Pro subscription
 - 💬 **Full Chat Support** - Complete conversation context handling
 
 ## Prerequisites
@@ -64,7 +73,49 @@ The installer will:
 
 Select "Claude Code" from the model dropdown in your chat interface and start using Claude with code execution capabilities!
 
-## Manual Installation
+## Option 2: Embedded Integration Installation
+
+For a fully native experience with admin panel controls:
+
+### 1. Navigate to Your Open WebUI Directory
+
+```bash
+cd /path/to/your/open-webui
+```
+
+### 2. Download and Run the Embedded Installer
+
+```bash
+# Download the installer
+curl -O https://raw.githubusercontent.com/ivanuser/claude-code-openwebui-sidecar/master/embed-installer/install_embedded.py
+
+# Run the installer
+python install_embedded.py
+```
+
+### 3. Follow the Prompts
+
+The installer will:
+- Check for Node.js and Claude CLI
+- Inject Claude Code files into Open WebUI
+- Set up admin panel components
+- Configure OAuth token
+
+### 4. Access Admin Panel
+
+After restarting Open WebUI:
+1. Go to **Admin Settings > Claude Code**
+2. Enter your OAuth token if not done during installation
+3. Enable Claude Code
+4. Configure settings as needed
+
+### 5. Use Claude Code
+
+Select "Claude Code" from the model dropdown in any chat!
+
+---
+
+## Option 1: Sidecar Container Installation (Manual)
 
 ### 1. Configure Environment
 
