@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  claude-code-sidecar:
+    build: .
+    container_name: claude-code-sidecar
+    ports:
+      - "8100:8100"
+    environment:
+      # Required: Your Claude Pro OAuth token
+      - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
+      
+      # Optional: API key for securing the service
+      - CLAUDE_CODE_API_KEY=${CLAUDE_CODE_API_KEY:-}
+      
+      # Optional: Open WebUI URL for auto-registration
+      - OPENWEBUI_URL=${OPENWEBUI_URL:-http://localhost:8080}
+      
+      # Optional: Configuration
+      - CLAUDE_CODE_ENABLED=${CLAUDE_CODE_ENABLED:-true}
+      - CLAUDE_CODE_TIMEOUT=${CLAUDE_CODE_TIMEOUT:-60}
+      - CLAUDE_CODE_PATH=${CLAUDE_CODE_PATH:-claude}
+    
+    volumes:
+      # Mount host Node.js/Claude installation if not using Docker's
+      # - /home/ihoner/.nvm/versions/node/v22.17.1:/opt/node:ro
+      
+      # Optional: Mount working directory for file access
+      - ${CLAUDE_WORKING_DIR:-./workspace}:/workspace
+    
+    restart: unless-stopped
+    
+    networks:
+      - claude-net
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8100/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  claude-net:
+    external: true
+    name: open-webui_default  # Connect to Open WebUI's network

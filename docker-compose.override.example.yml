@@ -1,0 +1,44 @@
+# Example Docker Compose Override File
+# Copy this to docker-compose.override.yml for custom configurations
+
+version: '3.8'
+
+services:
+  claude-code-sidecar:
+    # Example: Use host network mode (for debugging)
+    # network_mode: host
+    
+    # Example: Mount host Claude installation
+    volumes:
+      # For Ubuntu/Debian with nvm
+      - ~/.nvm/versions/node/v20.0.0:/opt/node:ro
+      
+      # For macOS with Homebrew
+      # - /opt/homebrew:/opt/homebrew:ro
+      
+      # For custom working directory
+      # - ~/projects:/workspace
+    
+    # Example: Additional environment variables
+    environment:
+      # Enable debug logging
+      - LOG_LEVEL=DEBUG
+      
+      # Custom timeout
+      - CLAUDE_CODE_TIMEOUT=120
+      
+      # Use different port
+      # - PORT=8200
+    
+    # Example: Resource limits
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '2'
+    #       memory: 2G
+    #     reservations:
+    #       cpus: '1'
+    #       memory: 1G
+    
+    # Example: Custom command for development
+    # command: uvicorn main:app --host 0.0.0.0 --port 8100 --reload
