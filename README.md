@@ -4,10 +4,19 @@ Two ways to add Claude Code CLI capabilities to your Open WebUI:
 
 ## 🚀 Choose Your Installation Method
 
-### Option 1: 🐳 Sidecar Container (Recommended for existing setups)
+| Feature | Sidecar Container | Embedded Integration |
+|---------|------------------|---------------------|
+| **Modifies Open WebUI** | ❌ No | ✅ Yes |
+| **Admin Panel Controls** | ❌ No | ✅ Yes |
+| **Separate Container** | ✅ Yes | ❌ No |
+| **Easy Uninstall** | ✅ Yes | ⚠️ Manual |
+| **Resource Usage** | Higher (2 containers) | Lower (1 container) |
+| **Best For** | Production, Multiple instances | Single instance, Full control |
+
+### Option 1: 🐳 Sidecar Container
 Run Claude Code as a separate Docker service alongside Open WebUI. No modifications to your Open WebUI installation required.
 
-### Option 2: 🔧 Embedded Integration (Full native experience)
+### Option 2: 🔧 Embedded Integration
 Install Claude Code directly into Open WebUI with admin panel controls, settings management, and native UI integration.
 
 ## Features
@@ -75,21 +84,26 @@ Select "Claude Code" from the model dropdown in your chat interface and start us
 
 ## Option 2: Embedded Integration Installation
 
-For a fully native experience with admin panel controls:
+### For Docker Deployments (Production)
 
-### 1. Navigate to Your Open WebUI Directory
+One-line installer for Docker containers:
+
+```bash
+curl -sL https://raw.githubusercontent.com/ivanuser/claude-code-openwebui-sidecar/master/embed-installer/install_docker.sh | bash
+```
+
+This will:
+- Auto-detect your Open WebUI container
+- Install Node.js and Claude CLI in the container
+- Inject Claude Code files
+- Configure OAuth token
+- Restart container
+
+### For Local Installations (Development)
 
 ```bash
 cd /path/to/your/open-webui
-```
-
-### 2. Download and Run the Embedded Installer
-
-```bash
-# Download the installer
 curl -O https://raw.githubusercontent.com/ivanuser/claude-code-openwebui-sidecar/master/embed-installer/install_embedded.py
-
-# Run the installer
 python install_embedded.py
 ```
 
